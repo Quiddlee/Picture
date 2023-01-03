@@ -1,16 +1,15 @@
-import validateInputs from "../services/validateInputs";
 import showStatusMessage from "../services/showStatusMessage";
-import postData from "../services/cervices";
-import ValidateInputs from "../services/validateInputs";
+import validateInputs from "../services/validateInputs";
+import {postData} from "../services/requests";
 
 
 const forms = () => {
-    const allForms = document.querySelectorAll('form');
     const upload = document.querySelectorAll('[name="upload"]');
+    const allForms = document.querySelectorAll('form');
 
 
     validateInputs('textarea[name="message"]');
-    ValidateInputs('input[name="message"]');
+    validateInputs('input[name="message"]');
     validateInputs('input[name="name"]');
 
 

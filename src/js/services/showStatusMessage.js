@@ -45,10 +45,10 @@ const showStatusMessage = ({statusImage, appendElement, delay, message, oldEleme
             border-radius: 4px;
             font-size: 23px;
             position: fixed;
-            z-index: 5;
+            width: 100%;
             right: 50%;
+            z-index: 5;
             top: 98%;
-            width: 100%
         `;
     } catch(e) {}
 

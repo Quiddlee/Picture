@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     sliders('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn', '.main-prev-btn');
     sliders('.main-slider-item','vertical');
-    showMoreStyles('.button-styles','.hidden-lg');
+    showMoreStyles('.button-styles','#styles .row');
     mask('[name="phone"]');
     modals();
     forms();
