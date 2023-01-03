@@ -73,9 +73,6 @@ const showStatusMessage = ({statusImage, appendElement, delay, message, oldEleme
             } catch(e){}
 
 
-            statusMessage.classList.remove('fadeOut');
-            appendElement.classList.remove('fadeIn');
-            textMessage.classList.remove('fadeOut');
             appendElement.style.display = 'block';
             statusMessage.remove();
             textMessage.remove();

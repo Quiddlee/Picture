@@ -1,6 +1,7 @@
 import validateInputs from "../services/validateInputs";
 import showStatusMessage from "../services/showStatusMessage";
 import postData from "../services/cervices";
+import ValidateInputs from "../services/validateInputs";
 
 
 const forms = () => {
@@ -8,10 +9,9 @@ const forms = () => {
     const upload = document.querySelectorAll('[name="upload"]');
 
 
-    // checkNumInputs('input[name="user_phone"]')
-    validateInputs('textarea[name="message"]', /[a-z]/gi);
-    validateInputs('input[name="name"]', /[a-z]/gi);
-    validateInputs('input[name="phone"]', /\D/g);
+    validateInputs('textarea[name="message"]');
+    ValidateInputs('input[name="message"]');
+    validateInputs('input[name="name"]');
 
 
     const messages = {
