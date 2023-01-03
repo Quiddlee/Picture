@@ -23,10 +23,6 @@ const mask = (selector) => {
         let i = 0;
 
 
-        this.value = this.value + 0;
-        console.log(value);
-
-
         if (deffault.length >= value.length || +value[0] !== 3 || +value[1] !== 8) value = deffault;
 
 
