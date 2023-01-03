@@ -1,4 +1,4 @@
-const checkCyrillicInput = (selector, replace) => {
+const validateInputs = (selector, replace) => {
     const inputs = document.querySelectorAll(selector);
 
 
@@ -10,4 +10,4 @@ const checkCyrillicInput = (selector, replace) => {
 };
 
 
-export default checkCyrillicInput;
+export default validateInputs;
