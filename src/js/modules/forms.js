@@ -3,7 +3,7 @@ import validateInputs from "../services/validateInputs";
 import {postData} from "../services/requests";
 
 
-const forms = () => {
+const forms = (state) => {
     const upload = document.querySelectorAll('[name="upload"]');
     const allForms = document.querySelectorAll('form');
 
@@ -41,6 +41,12 @@ const forms = () => {
 
 
             const formData = new FormData(form);
+            if (form.getAttribute('data-calc') === 'end') {
+                for (const key in state) {
+                    formData.append(key, state[key]);
+                    delete state[key];
+                }
+            }
             let api;
             form.closest('.popup-design') || form.classList.contains('calc_form')
                 ? api = paths.designer
@@ -68,8 +74,9 @@ const forms = () => {
                     });
                 })
                 .finally(() => {
-                    allForms.forEach(form => form.reset());
+                    document.querySelector('.calc-price').textContent = 'Для расчета нужно выбрать размер картины и материал картины';
                     upload.forEach(elem => elem.previousElementSibling.textContent = 'Файл не выбран');
+                    allForms.forEach(form => form.reset());
                 });
         });
     }
