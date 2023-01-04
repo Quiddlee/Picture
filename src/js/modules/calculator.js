@@ -1,3 +1,6 @@
+import {getResource} from "../services/requests";
+
+
 const calculator = (size, material, options, promocode, result, state) => {
     const promocodeBlock = document.querySelector(promocode);
     const materialBlock = document.querySelector(material);
@@ -7,7 +10,27 @@ const calculator = (size, material, options, promocode, result, state) => {
     let sum = 0;
 
 
-    const calcFunction = (element, property) => {
+    const setPrice = async (element) => {
+        let priceList;
+        await getResource('http://localhost:3000/PriceList')
+            .then(data => priceList = data);
+
+
+        priceList.forEach(elem => {
+            for (const key in elem) {
+                try {
+                    if (key === element.options[element.selectedIndex].innerText) {
+                        element.options[element.selectedIndex].value = elem[key];
+                    }
+                } catch(e){}
+            }
+        });
+    }
+
+
+    const calcFunction = async (element, property) => {
+        await setPrice(element);
+
         sum = Math.round((+sizeBlock.value) * (+materialBlock.value) + (+optionsBlock.value));
 
         if (sizeBlock.value === '' || materialBlock.value === '') {
@@ -23,7 +46,6 @@ const calculator = (size, material, options, promocode, result, state) => {
             state['promocode'] = 'false';
         }
 
-
         try {
             if (element.options.selectedIndex === 0) {
                 delete state[property];
@@ -35,6 +57,7 @@ const calculator = (size, material, options, promocode, result, state) => {
                 state['price'] = resultBlock.textContent;
             }
         }catch(e) {}
+
         console.log(state);
     };
 
