@@ -12,31 +12,38 @@ const calculator = (size, material, options, promocode, result, state) => {
 
     const setPrice = async (element) => {
         let priceList;
+        let promo;
         await getResource('http://localhost:3000/PriceList')
             .then(data => priceList = data);
 
 
-        priceList.forEach(elem => {
-            for (const key in elem) {
+        priceList.forEach(obj => {
+            for (const key in obj) {
                 try {
                     if (key === element.options[element.selectedIndex].innerText) {
-                        element.options[element.selectedIndex].value = elem[key];
+                        element.options[element.selectedIndex].value = obj[key];
+                    }
+
+                    if (key === 'promocode') {
+                        promo = obj[key];
                     }
                 } catch(e){}
             }
         });
+
+        return promo;
     }
 
 
     const calcFunction = async (element, property) => {
-        await setPrice(element);
+        const promo = await setPrice(element);
 
         sum = Math.round((+sizeBlock.value) * (+materialBlock.value) + (+optionsBlock.value));
 
         if (sizeBlock.value === '' || materialBlock.value === '') {
             resultBlock.textContent = 'Пожалуйста, выберите размер и материал картины';
         }
-        else if (promocodeBlock.value === 'IWANTPOPART') {
+        else if (promocodeBlock.value === promo) {
             resultBlock.textContent = Math.round(sum * 0.7);
             state['promocode'] = 'true';
             state['price'] = resultBlock.textContent;
