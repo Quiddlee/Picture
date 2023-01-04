@@ -20,12 +20,12 @@ const calculator = (size, material, options, promocode, result, state) => {
         priceList.forEach(obj => {
             for (const key in obj) {
                 try {
-                    if (key === element.options[element.selectedIndex].innerText) {
-                        element.options[element.selectedIndex].value = obj[key];
-                    }
-
                     if (key === 'promocode') {
                         promo = obj[key];
+                    }
+
+                    if (key === element.options[element.selectedIndex].innerText) {
+                        element.options[element.selectedIndex].value = obj[key];
                     }
                 } catch(e){}
             }
@@ -46,7 +46,6 @@ const calculator = (size, material, options, promocode, result, state) => {
         else if (promocodeBlock.value === promo) {
             resultBlock.textContent = Math.round(sum * 0.7);
             state['promocode'] = 'true';
-            state['price'] = resultBlock.textContent;
         }
         else {
             resultBlock.textContent = sum;
@@ -56,23 +55,21 @@ const calculator = (size, material, options, promocode, result, state) => {
         try {
             if (element.options.selectedIndex === 0) {
                 delete state[property];
-                state['price'] = resultBlock.textContent;
             }
 
             if (element.options.selectedIndex !== 0) {
                 state[property] = element.options[element.selectedIndex].textContent;
-                state['price'] = resultBlock.textContent;
             }
         }catch(e) {}
-
+        state['price'] = resultBlock.textContent;
         console.log(state);
     };
 
 
+    promocodeBlock.addEventListener('input', () => calcFunction(promocodeBlock, 'promocode'));
     materialBlock.addEventListener('change', () => calcFunction(materialBlock, 'material'));
     optionsBlock.addEventListener('change', () => calcFunction(optionsBlock, 'options'));
     sizeBlock.addEventListener('change', () => calcFunction(sizeBlock, 'size'));
-    promocodeBlock.addEventListener('input', calcFunction, promocodeBlock, 'promocode');
 };
 
 
