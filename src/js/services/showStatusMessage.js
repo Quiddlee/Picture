@@ -29,10 +29,10 @@ const showStatusMessage = ({statusImage, appendElement, delay, message, oldEleme
     imageMessage.src = statusImage;
     imageMessage.style.cssText = `
         border-radius: 4px;
-        margin: 0 auto 
-        display: none;
         max-height: 20rem;
         max-width: 20rem;
+        margin: 0 auto 
+        display: none;
         z-index: 3;
     `;
 

@@ -17,7 +17,7 @@ const mask = (selector) => {
 
 
     function createMask(event) {
-        const matrix = '+38 (___) ___ __ __';
+        const matrix = '+38 (0__) ___ __ __';
         const deffault = matrix.replace(/\D/g, '');
         let value = this.value.replace(/\D/g, '');
         let i = 0;

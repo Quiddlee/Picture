@@ -20,8 +20,8 @@ const modals = () => {
 
 
                 windows.forEach(window => {
-                    window.style.display = 'none'
                     window.classList.add('animated', 'fadeIn');
+                    window.style.display = 'none'
                 });
 
 
@@ -95,8 +95,8 @@ const modals = () => {
 
 
     bindModal('.popup-consultation', '.button-consultation', '.popup-consultation .popup-close');
-    bindModal('.popup-gift', '.fixed-gift', '.popup-gift .popup-close', true);
     bindModal('.popup-design', '.button-design', '.popup-design .popup-close');
+    bindModal('.popup-gift', '.fixed-gift', '.popup-gift .popup-close', true);
     openByScroll('.fixed-gift');
 };
 
