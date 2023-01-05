@@ -912,6 +912,7 @@ h4 {
   border-bottom: 2px dotted #333;
 }
 .often-questions .accordion-block {
+  transition: all 5s ease-in-out;
   margin-top: 1rem;
   background-color: #f7e7e6;
   padding: 3rem 4rem;
