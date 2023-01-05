@@ -2,6 +2,7 @@ import showMoreStyles from "./modules/showMoreStyles";
 import calculator from "./modules/calculator";
 import sliders from "./modules/sliders";
 import modals from "./modules/modals";
+import filter from "./modules/filter";
 import forms from "./modules/forms";
 import mask from "./modules/mask";
 
@@ -17,4 +18,5 @@ window.addEventListener('DOMContentLoaded', () => {
     mask('[name="phone"]');
     forms(state);
     modals();
+    filter();
 });
