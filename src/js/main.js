@@ -1,4 +1,5 @@
 import showMoreStyles from "./modules/showMoreStyles";
+import pictureSize from "./modules/pictureSize";
 import calculator from "./modules/calculator";
 import sliders from "./modules/sliders";
 import modals from "./modules/modals";
@@ -17,6 +18,7 @@ window.addEventListener('DOMContentLoaded', () => {
     sliders('.main-slider-item','vertical');
     mask('[name="phone"]');
     forms(state);
+    pictureSize('.sizes-block');
     modals();
     filter();
 });
