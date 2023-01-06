@@ -1,6 +1,7 @@
 import showMoreStyles from "./modules/showMoreStyles";
 import pictureSize from "./modules/pictureSize";
 import calculator from "./modules/calculator";
+import scrolling from "./modules/scrolling";
 import collapse from "./modules/collapse";
 import sliders from "./modules/sliders";
 import modals from "./modules/modals";
@@ -19,10 +20,11 @@ window.addEventListener('DOMContentLoaded', () => {
     collapse('.accordion-heading', '.accordion-block');
     showMoreStyles('.button-styles','#styles .row');
     sliders('.main-slider-item','vertical');
+    burger('.burger-menu', '.burger');
     pictureSize('.sizes-block');
     mask('[name="phone"]');
+    scrolling('.pageup');
     forms(state);
     modals();
     filter();
-    burger('.burger-menu', '.burger');
 });
