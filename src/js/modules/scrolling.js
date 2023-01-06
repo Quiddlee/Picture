@@ -77,12 +77,8 @@ const scrolling = (upSelector) => {
     //     let prevScrollTop;
     //     let speed;
     //
-    //     if (to > from) {
-    //         speed = 30;
-    //     }
-    //     else {
-    //         speed = -30;
-    //     }
+    //     if (to > from) speed = 30;
+    //     else speed = -30;
     //
     //     const move = setInterval(() => {
     //         let scrollTop = Math.round(body.scrollTop || element.scrollTop);

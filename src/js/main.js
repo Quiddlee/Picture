@@ -1,5 +1,6 @@
 import showMoreStyles from "./modules/showMoreStyles";
 import pictureSize from "./modules/pictureSize";
+import dragAndDrop from "./modules/dragAndDrop";
 import calculator from "./modules/calculator";
 import scrolling from "./modules/scrolling";
 import collapse from "./modules/collapse";
@@ -25,6 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
     mask('[name="phone"]');
     scrolling('.pageup');
     forms(state);
+    dragAndDrop();
     modals();
     filter();
 });
