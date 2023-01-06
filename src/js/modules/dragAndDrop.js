@@ -1,3 +1,5 @@
+import {postData} from "../services/requests";
+
 const dragAndDrop = () => {
     // drag *
     // dragend *
@@ -25,14 +27,17 @@ const dragAndDrop = () => {
         element.closest('.file_upload').style.border = '5px solid yellow';
         element.closest('.file_upload').style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
     }
-
     function unHighlight(element) {
         element.closest('.file_upload').style.border = 'none';
+
         if (element.closest('.calc_form')) {
             element.closest('.file_upload').style.backgroundColor = '#fff';
         }
-        else {
+        else if (element.closest('.main-form')) {
             element.closest('.file_upload').style.backgroundColor = '#ededed';
+        }
+        else {
+            element.closest('.file_upload').style.backgroundColor = '#f7e7e6';
         }
     }
 
@@ -52,8 +57,32 @@ const dragAndDrop = () => {
         input.addEventListener('drop', (event) => {
             input.files = event.dataTransfer.files;
 
-            const filesArr = input.files[0].name.split('.');
+            if (input.closest('.hidden-xs')) {
+                const file = input.files;
+                const formData = new FormData();
+
+                for (const key in file) {
+                    formData.append(key, file[key]);
+                }
+
+                postData('assets/server.php', formData)
+                    .then(data => {
+                        input.previousElementSibling.textContent = 'Файл успешно отправлен!';
+                        console.log(data)
+                    })
+                    .catch(data => {
+                        input.previousElementSibling.textContent = 'Произошла ошибка';
+                        console.log(data)
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            input.previousElementSibling.textContent = 'Файл не выбран';
+                        }, 5000);
+                    });
+            }
+
             let dots;
+            const filesArr = input.files[0].name.split('.');
             filesArr[0].length > 6 ? dots = '...' : dots = '.';
             input.previousElementSibling.textContent = `${filesArr[0].substring(0, 6)}${dots}${filesArr[1]}`;
         });
