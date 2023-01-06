@@ -1,12 +1,5 @@
-const collapse = (triggersSelector, descrSelector) => {
+const collapse = (triggersSelector) => {
     const buttons = document.querySelectorAll(triggersSelector);
-    const blocks = document.querySelectorAll(descrSelector);
-
-
-    // blocks.forEach(block => {
-    //     block.style.display = 'none';
-    // });
-
 
     buttons.forEach(button => {
         button.addEventListener('click', function() {
@@ -23,7 +16,8 @@ const collapse = (triggersSelector, descrSelector) => {
                     {filter: 'opacity(25%)',
                         transform: 'translateY(-3%) scale(1, 1.05)'},
                     {filter: 'opacity(100%)',
-                        transform: 'translateY(0%) scale(1)'}
+                        transform: 'translateY(0%) scale(1, 0.98)'},
+                    {transform: 'translateY(0%) scale(1)'}
                 ], {
                     duration: 500,
                 });
