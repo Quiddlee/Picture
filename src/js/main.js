@@ -5,6 +5,7 @@ import collapse from "./modules/collapse";
 import sliders from "./modules/sliders";
 import modals from "./modules/modals";
 import filter from "./modules/filter";
+import burger from "./modules/burger";
 import forms from "./modules/forms";
 import mask from "./modules/mask";
 
@@ -23,4 +24,5 @@ window.addEventListener('DOMContentLoaded', () => {
     forms(state);
     modals();
     filter();
+    burger('.burger-menu', '.burger');
 });
