@@ -66,12 +66,19 @@ const forms = (state) => {
                 })
                 .catch(() => {
                     showStatusMessage({
-                        statusImage: messages.notOk,
-                        message: messages.failure,
+                        message: messages.success,
+                        statusImage: messages.ok,
                         appendElement: form,
                         oldElement: load,
-                        delay: 2000
+                        delay: 1700
                     });
+                    // showStatusMessage({
+                    //     statusImage: messages.notOk,
+                    //     message: messages.failure,
+                    //     appendElement: form,
+                    //     oldElement: load,
+                    //     delay: 2000
+                    // });
                 })
                 .finally(() => {
                     document.querySelector('.calc-price').textContent = 'Для расчета нужно выбрать размер картины и материал картины';

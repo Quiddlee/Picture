@@ -59,9 +59,6 @@ h3,
 h4 {
   font-family: 'Circe Extra Bold', sans-serif;
 }
-.status {
-  text-align: center;
-}
 .p15 {
   font-size: 1.5;
 }
@@ -837,10 +834,12 @@ h4 {
   right: -10rem;
 }
 .feedback {
+  overflow-x: hidden;
   background-color: #f7e7e6;
   padding: 9rem 0;
 }
 .feedback-slider-item {
+  transform: translateX(50px);
   padding-bottom: 5rem;
 }
 .feedback-block {
@@ -895,6 +894,12 @@ h4 {
 .often-questions .p-heading {
   text-align: center;
 }
+.often-questions p.active-style span {
+  color: #E950D7;
+  font-weight: 900;
+  text-decoration: none;
+  border: 0;
+}
 .often-questions .accordion-heading {
   font-size: 2.2rem;
   cursor: pointer;
@@ -906,9 +911,17 @@ h4 {
   border-bottom: 2px dotted #333;
 }
 .often-questions .accordion-block {
-  margin-top: 1rem;
   background-color: #f7e7e6;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.31s ease-out;
+  overflow: hidden;
+}
+.often-questions .accordion-block.active-content {
+  overflow: visible;
+  opacity: 1;
   padding: 3rem 4rem;
+  margin-top: 1rem;
 }
 .often-questions .accordion-block:before {
   content: '';
@@ -1260,6 +1273,67 @@ h4 {
   border-radius: 4px;
   transform: translateX(-50%) !important;
   padding: 3rem 6rem 4rem 6rem;
+}
+.status {
+  text-align: center;
+}
+.pageup {
+  opacity: 0;
+  width: 26px ;
+  height: 26px;
+  position: fixed;
+  bottom: 100px;
+  right: 5%;
+  z-index: 30;
+  background-color: #fff;
+  cursor: pointer;
+  border: 1px solid white;
+  transition: 1s all;
+}
+.overflow {
+  overflow: hidden;
+}
+.slideLeft {
+  animation-name: slideLeft;
+  animation-duration: 0.5s;
+}
+@keyframes slideLeft {
+  from {
+    transform: translateX(500px) scale(1.25, 1);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(50px) scale(1);
+    opacity: 100%;
+  }
+}
+.slideRight {
+  animation-name: slideRight;
+  animation-duration: 0.5s;
+}
+@keyframes slideRight {
+    from {
+      transform: translateX(-500px) scale(1.25, 1);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(50px) scale(1);
+      opacity: 100%;
+    }
+}
+.slideUp {
+  animation-name: slideUp;
+  animation-duration: 1s;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(500px) scale(1, 1.25);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px) scale(1);
+    opacity: 100%;
+  }
 }
 @media (max-width: 1399px) {
   .paints {

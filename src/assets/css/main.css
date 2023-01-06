@@ -834,10 +834,12 @@ h4 {
   right: -10rem;
 }
 .feedback {
+  overflow-x: hidden;
   background-color: #f7e7e6;
   padding: 9rem 0;
 }
 .feedback-slider-item {
+  transform: translateX(50px);
   padding-bottom: 5rem;
 }
 .feedback-block {
@@ -1287,6 +1289,51 @@ h4 {
   cursor: pointer;
   border: 1px solid white;
   transition: 1s all;
+}
+.overflow {
+  overflow: hidden;
+}
+.slideLeft {
+  animation-name: slideLeft;
+  animation-duration: 0.5s;
+}
+@keyframes slideLeft {
+  from {
+    transform: translateX(500px) scale(1.25, 1);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(50px) scale(1);
+    opacity: 100%;
+  }
+}
+.slideRight {
+  animation-name: slideRight;
+  animation-duration: 0.5s;
+}
+@keyframes slideRight {
+    from {
+      transform: translateX(-500px) scale(1.25, 1);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(50px) scale(1);
+      opacity: 100%;
+    }
+}
+.slideUp {
+  animation-name: slideUp;
+  animation-duration: 1s;
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(500px) scale(1, 1.25);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px) scale(1);
+    opacity: 100%;
+  }
 }
 @media (max-width: 1399px) {
   .paints {

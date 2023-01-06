@@ -19,7 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
     sliders('.feedback-slider-item', 'horizontal', '.main-prev-btn', '.main-next-btn', '.main-prev-btn');
     calculator('#size', '#material', '#options', '.promocode', '.calc-price', state);
     collapse('.accordion-heading', '.accordion-block');
-    showMoreStyles('.button-styles','#styles .row');
+    showMoreStyles('.button-styles','.styles-2');
     sliders('.main-slider-item','vertical');
     burger('.burger-menu', '.burger');
     pictureSize('.sizes-block');

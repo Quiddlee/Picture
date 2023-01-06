@@ -8,18 +8,17 @@ const sliders = (slidesSelector, direction, prev, next) => {
         if (whichSlide > slides.length) slideIndex = 1;
         if (whichSlide < 1) slideIndex = slides.length;
 
-
         slides.forEach(slide => {
-            slide.classList.add('animated');
             slide.style.display = 'none';
         });
         slides[slideIndex - 1].style.display = 'block';
+
     }
     showSlides(slideIndex);
 
 
-    const plusSlides = (howManySlides) => {
-        showSlides(slideIndex += howManySlides);
+    const plusSlides = (whichSlide) => {
+        showSlides(slideIndex += whichSlide);
     }
 
 
@@ -30,15 +29,17 @@ const sliders = (slidesSelector, direction, prev, next) => {
 
         prevBtn.addEventListener('click', () => {
             plusSlides(-1);
-            slides[slideIndex - 1].classList.remove('slideInLeft');
-            slides[slideIndex - 1].classList.add('slideInRight');
+            slides[slideIndex - 1].classList.remove('slideLeft');
+            slides[slideIndex - 1].classList.add('slideRight');
+            document.body.overflow = 'hidden';
         });
 
 
         nextBtn.addEventListener('click', () => {
             plusSlides(1);
-            slides[slideIndex - 1].classList.remove('slideInRight');
-            slides[slideIndex - 1].classList.add('slideInLeft');
+            document.body.overflow = 'hidden';
+            slides[slideIndex - 1].classList.remove('slideRight');
+            slides[slideIndex - 1].classList.add('slideLeft');
         });
     }
     catch(error) {}
@@ -48,14 +49,14 @@ const sliders = (slidesSelector, direction, prev, next) => {
         if (direction === 'vertical') {
             paused = setInterval(() => {
                 plusSlides(1);
-                slides[slideIndex - 1].classList.add('slideInDown');
+                slides[slideIndex - 1].classList.add('slideUp');
             }, 3000);
         }
         else {
             paused = setInterval(() => {
                 plusSlides(1);
-                slides[slideIndex - 1].classList.remove('slideInRight');
-                slides[slideIndex - 1].classList.add('slideInLeft');
+                slides[slideIndex - 1].classList.remove('slideRight');
+                slides[slideIndex - 1].classList.add('slideLeft');
             }, 3000);
         }
     }
