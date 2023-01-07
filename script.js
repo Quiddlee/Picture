@@ -186,46 +186,75 @@ const calculator = (size, material, options, promocode, result, state) => {
   const resultBlock = document.querySelector(result);
   const sizeBlock = document.querySelector(size);
   let sum = 0;
-  const setPrice = async element => {
-    let priceList;
-    let promo;
-    await Object(_services_requests__WEBPACK_IMPORTED_MODULE_0__["getResource"])('http://localhost:3000/PriceList').then(data => priceList = data);
-    priceList.forEach(obj => {
-      for (const key in obj) {
-        try {
-          if (key === 'promocode') {
-            promo = obj[key];
-          }
-          if (key === element.options[element.selectedIndex].innerText) {
-            element.options[element.selectedIndex].value = obj[key];
-          }
-        } catch (e) {}
-      }
-    });
-    return promo;
-  };
-  const calcFunction = async (element, property) => {
-    const promo = await setPrice(element);
+
+  //                                                  w/ database
+
+  // const setPrice = async (element) => {
+  //     let priceList;
+  //     let promo;
+  //     await getResource('http://localhost:3000/PriceList')
+  //         .then(data => priceList = data);
+  //
+  //
+  //     priceList.forEach(obj => {
+  //         for (const key in obj) {
+  //             try {
+  //                 if (key === 'promocode') {
+  //                     promo = obj[key];
+  //                 }
+  //
+  //                 if (key === element.options[element.selectedIndex].innerText) {
+  //                     element.options[element.selectedIndex].value = obj[key];
+  //                 }
+  //             } catch(e){}
+  //         }
+  //     });
+  //
+  //     return promo;
+  // }
+  //
+  //
+  // const calcFunction = async (element, property) => {
+  //     const promo = await setPrice(element);
+  //
+  //     sum = Math.round((+sizeBlock.value) * (+materialBlock.value) + (+optionsBlock.value));
+  //
+  //     if (sizeBlock.value === '' || materialBlock.value === '') {
+  //         resultBlock.textContent = 'Пожалуйста, выберите размер и материал картины';
+  //     }
+  //     else if (promocodeBlock.value === promo) {
+  //         resultBlock.textContent = Math.round(sum * 0.7);
+  //         state['promocode'] = 'true';
+  //     }
+  //     else {
+  //         resultBlock.textContent = sum;
+  //         state['promocode'] = 'false';
+  //     }
+  //
+  //     try {
+  //         if (element.options.selectedIndex === 0) {
+  //             delete state[property];
+  //         }
+  //
+  //         if (element.options.selectedIndex !== 0) {
+  //             state[property] = element.options[element.selectedIndex].textContent;
+  //         }
+  //     }catch(e) {}
+  //     state['price'] = resultBlock.textContent;
+  //     console.log(state);
+  // };
+
+  //                                                  w/o database
+
+  const calcFunction = () => {
     sum = Math.round(+sizeBlock.value * +materialBlock.value + +optionsBlock.value);
     if (sizeBlock.value === '' || materialBlock.value === '') {
-      resultBlock.textContent = 'Пожалуйста, выберите размер и материал картины';
-    } else if (promocodeBlock.value === promo) {
+      resultBlock.textContent = "Пожалуйста, выберите размер и материал картины";
+    } else if (promocodeBlock.value === 'IWANTPOPART') {
       resultBlock.textContent = Math.round(sum * 0.7);
-      state['promocode'] = 'true';
     } else {
       resultBlock.textContent = sum;
-      state['promocode'] = 'false';
     }
-    try {
-      if (element.options.selectedIndex === 0) {
-        delete state[property];
-      }
-      if (element.options.selectedIndex !== 0) {
-        state[property] = element.options[element.selectedIndex].textContent;
-      }
-    } catch (e) {}
-    state['price'] = resultBlock.textContent;
-    console.log(state);
   };
   promocodeBlock.addEventListener('input', () => calcFunction(promocodeBlock, 'promocode'));
   materialBlock.addEventListener('change', () => calcFunction(materialBlock, 'material'));
@@ -245,6 +274,8 @@ const calculator = (size, material, options, promocode, result, state) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/animation */ "./src/js/services/animation.js");
+
 const collapse = triggersSelector => {
   const buttons = document.querySelectorAll(triggersSelector);
   buttons.forEach(button => {
@@ -254,34 +285,10 @@ const collapse = triggersSelector => {
       sibling.classList.toggle('active-content');
       if (this.classList.contains('active-style')) {
         sibling.style.maxHeight = `${sibling.scrollHeight + 80}px`;
-        sibling.animate([{
-          filter: 'opacity(0%)',
-          transform: 'translateY(-120%) scale(0.5, 0.4)'
-        }, {
-          filter: 'opacity(25%)',
-          transform: 'translateY(-3%) scale(1, 1.05)'
-        }, {
-          filter: 'opacity(100%)',
-          transform: 'translateY(0%) scale(1, 0.98)'
-        }, {
-          transform: 'translateY(0%) scale(1)'
-        }], {
-          duration: 500
-        });
+        _services_animation__WEBPACK_IMPORTED_MODULE_0__["default"].collapseIn(sibling);
       } else {
         sibling.style.maxHeight = '0px';
-        sibling.animate([{
-          filter: 'opacity(100%)',
-          transform: 'translateY(0) scale(1)'
-        }, {
-          filter: 'opacity(25%)',
-          transform: 'translateY(30%) scale(0.5, 0.4)'
-        }, {
-          filter: 'opacity(20%)',
-          transform: 'translateY(-75%) scale(0)'
-        }], {
-          duration: 300
-        });
+        _services_animation__WEBPACK_IMPORTED_MODULE_0__["default"].collapseOut(sibling);
       }
     });
   });
@@ -322,8 +329,9 @@ const dragAndDrop = () => {
     event.preventDefault();
   }
   function highlight(element) {
-    element.closest('.file_upload').style.border = '5px solid yellow';
-    element.closest('.file_upload').style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    element.closest('.file_upload').style.border = '1px solid #c51abb';
+    element.closest('.file_upload').style.borderRadius = '5%';
+    element.closest('.file_upload').style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
   }
   function unHighlight(element) {
     element.closest('.file_upload').style.border = 'none';
@@ -577,11 +585,14 @@ const mask = selector => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/animation */ "./src/js/services/animation.js");
+
 const modals = () => {
   let isModalActive = false;
   function bindModal(modalSelector, triggerSelector, closeSelector) {
     let deleteTrigger = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
     // const modalTimerId = showModalByTime('popup-consultation', 6000);
+    const modalDialogs = document.querySelectorAll('.popup-content');
     const trigger = document.querySelectorAll(triggerSelector);
     const windows = document.querySelectorAll('[data-modal]');
     const modal = document.querySelector(modalSelector);
@@ -595,8 +606,10 @@ const modals = () => {
         if (event.target) event.preventDefault();
         if (deleteTrigger) element.remove();
         isModalActive = true;
+        modalDialogs.forEach(elem => {
+          _services_animation__WEBPACK_IMPORTED_MODULE_0__["default"].modalIn(elem);
+        });
         windows.forEach(window => {
-          window.classList.add('animated', 'fadeIn');
           window.style.display = 'none';
         });
         document.body.style.marginRight = `${scroll}px`;
@@ -606,18 +619,26 @@ const modals = () => {
     });
     close.addEventListener('click', () => {
       if (gift) gift.style.right = `2rem`;
-      windows.forEach(window => window.style.display = 'none');
-      // modal.classList.remove('form_faded');
-      document.body.style.marginRight = '0px';
-      document.body.style.overflow = '';
+      modalDialogs.forEach(elem => {
+        _services_animation__WEBPACK_IMPORTED_MODULE_0__["default"].modalOut(elem);
+      });
+      setTimeout(() => {
+        windows.forEach(window => window.style.display = 'none');
+        document.body.style.marginRight = '0px';
+        document.body.style.overflow = '';
+      }, 300);
     });
     modal.addEventListener('click', event => {
       if (event.target === modal) {
         if (gift) gift.style.right = `2rem`;
-        windows.forEach(window => window.style.display = 'none');
-        // modal.classList.remove('form_faded');
-        document.body.style.marginRight = '0px';
-        document.body.style.overflow = '';
+        modalDialogs.forEach(elem => {
+          _services_animation__WEBPACK_IMPORTED_MODULE_0__["default"].modalOut(elem);
+        });
+        setTimeout(() => {
+          windows.forEach(window => window.style.display = 'none');
+          document.body.style.marginRight = '0px';
+          document.body.style.overflow = '';
+        }, 300);
       }
     });
   }
@@ -714,8 +735,8 @@ const scrolling = upSelector => {
   const upElement = document.querySelector(upSelector);
   window.addEventListener('scroll', () => {
     if (document.documentElement.scrollTop > 1650) {
-      upElement.classList.remove('fadeOut');
       upElement.classList.add('animated', 'fadeIn');
+      upElement.classList.remove('fadeOut');
     } else {
       upElement.classList.remove('fadeIn');
       upElement.classList.add('fadeOut');
@@ -725,7 +746,7 @@ const scrolling = upSelector => {
   //                                    requestAnimationFrame scrolling
 
   const links = document.querySelectorAll('[href^="#"]');
-  const speed = 0.3;
+  let speed = 0.2;
   links.forEach(link => {
     link.addEventListener('click', function (event) {
       event.preventDefault();
@@ -934,6 +955,95 @@ const sliders = (slidesSelector, direction, prev, next) => {
 
 /***/ }),
 
+/***/ "./src/js/services/animation.js":
+/*!**************************************!*\
+  !*** ./src/js/services/animation.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const animation = {
+  modalIn: element => {
+    element.animate([{
+      filter: 'opacity(0)',
+      scale: '1 0.1',
+      left: '52%'
+    }, {
+      filter: 'opacity(10%)',
+      scale: '1.2 0.1'
+    }, {
+      filter: 'opacity(40%)',
+      scale: '1 1.1',
+      left: '50%'
+    }, {
+      filter: 'opacity(100%) blur(0.6px)',
+      scale: '1.01 0.98'
+    }, {
+      filter: 'blur(0)',
+      scale: 1
+    }], {
+      duration: 500
+    });
+  },
+  modalOut: element => {
+    element.animate([{
+      filter: 'opacity(100%) blur(0.6px)',
+      scale: 1
+    }, {
+      filter: 'blur(0.7px)',
+      scale: '1.2 1.25'
+    }, {
+      filter: 'opacity(100%) blur(0px)',
+      scale: '1.4 1.3',
+      left: '53.5%'
+    }, {
+      filter: 'opacity(20%)',
+      scale: '1 0.8'
+    }, {
+      filter: 'opacity(5%) blur(0)',
+      left: '46%',
+      scale: 0
+    }], {
+      duration: 315
+    });
+  },
+  collapseIn: element => {
+    element.animate([{
+      filter: 'opacity(0%)',
+      transform: 'translateY(-120%) scale(0.5, 0.4)'
+    }, {
+      filter: 'opacity(25%)',
+      transform: 'translateY(-3%) scale(1, 1.05)'
+    }, {
+      filter: 'opacity(100%)',
+      transform: 'translateY(0%) scale(1, 0.98)'
+    }, {
+      transform: 'translateY(0%) scale(1)'
+    }], {
+      duration: 500
+    });
+  },
+  collapseOut: element => {
+    element.animate([{
+      filter: 'opacity(100%)',
+      transform: 'translateY(0) scale(1)'
+    }, {
+      filter: 'opacity(25%)',
+      transform: 'translateY(30%) scale(0.5, 0.4)'
+    }, {
+      filter: 'opacity(20%)',
+      transform: 'translateY(-75%) scale(0)'
+    }], {
+      duration: 300
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (animation);
+
+/***/ }),
+
 /***/ "./src/js/services/requests.js":
 /*!*************************************!*\
   !*** ./src/js/services/requests.js ***!
@@ -1062,11 +1172,25 @@ const showStatusMessage = _ref => {
 __webpack_require__.r(__webpack_exports__);
 const validateInputs = selector => {
   const inputs = document.querySelectorAll(selector);
+  let status;
   inputs.forEach(e => {
     e.addEventListener('input', () => {
+      if (status) status.remove();
+      if (e.value.match(/[a-z]/g)) {
+        status = statusMessage(e);
+      }
       e.value = e.value.replace(/[a-z]/gi, '');
     });
   });
+  const statusMessage = element => {
+    const message = document.createElement('div');
+    message.textContent = 'Пожалуйста, введите данные кириллицей';
+    element.parentNode.append(message);
+    setTimeout(() => {
+      message.remove();
+    }, 1000);
+    return message;
+  };
 };
 /* harmony default export */ __webpack_exports__["default"] = (validateInputs);
 
