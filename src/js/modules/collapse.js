@@ -1,3 +1,6 @@
+import animation from "../services/animation";
+
+
 const collapse = (triggersSelector) => {
     const buttons = document.querySelectorAll(triggersSelector);
 
@@ -9,32 +12,11 @@ const collapse = (triggersSelector) => {
 
             if (this.classList.contains('active-style')) {
                 sibling.style.maxHeight = `${sibling.scrollHeight + 80}px`;
-
-                sibling.animate([
-                    {filter: 'opacity(0%)',
-                        transform: 'translateY(-120%) scale(0.5, 0.4)'},
-                    {filter: 'opacity(25%)',
-                        transform: 'translateY(-3%) scale(1, 1.05)'},
-                    {filter: 'opacity(100%)',
-                        transform: 'translateY(0%) scale(1, 0.98)'},
-                    {transform: 'translateY(0%) scale(1)'}
-                ], {
-                    duration: 500,
-                });
+                animation.collapseIn(sibling);
             }
             else {
                 sibling.style.maxHeight = '0px';
-
-                sibling.animate([
-                    {filter: 'opacity(100%)',
-                        transform: 'translateY(0) scale(1)'},
-                    {filter: 'opacity(25%)',
-                        transform: 'translateY(30%) scale(0.5, 0.4)'},
-                    {filter: 'opacity(20%)',
-                        transform: 'translateY(-75%) scale(0)'}
-                ], {
-                    duration: 300,
-                });
+                animation.collapseOut(sibling);
             }
         });
     });

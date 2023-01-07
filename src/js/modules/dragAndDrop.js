@@ -24,9 +24,11 @@ const dragAndDrop = () => {
     }
 
     function highlight(element) {
-        element.closest('.file_upload').style.border = '5px solid yellow';
-        element.closest('.file_upload').style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        element.closest('.file_upload').style.border = '1px solid #c51abb';
+        element.closest('.file_upload').style.borderRadius = '5%';
+        element.closest('.file_upload').style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
     }
+
     function unHighlight(element) {
         element.closest('.file_upload').style.border = 'none';
 

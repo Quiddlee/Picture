@@ -3,8 +3,8 @@ const scrolling = (upSelector) => {
 
     window.addEventListener('scroll', () => {
         if (document.documentElement.scrollTop > 1650) {
-            upElement.classList.remove('fadeOut');
             upElement.classList.add('animated', 'fadeIn');
+            upElement.classList.remove('fadeOut');
         }
         else {
             upElement.classList.remove('fadeIn');
@@ -15,7 +15,7 @@ const scrolling = (upSelector) => {
     //                                    requestAnimationFrame scrolling
 
     const links = document.querySelectorAll('[href^="#"]');
-    const speed = 0.3;
+    let speed = 0.2;
 
     links.forEach(link => {
         link.addEventListener('click', function(event) {

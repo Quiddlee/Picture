@@ -10,59 +10,76 @@ const calculator = (size, material, options, promocode, result, state) => {
     let sum = 0;
 
 
-    const setPrice = async (element) => {
-        let priceList;
-        let promo;
-        await getResource('http://localhost:3000/PriceList')
-            .then(data => priceList = data);
+    //                                                  w/ database
+
+    // const setPrice = async (element) => {
+    //     let priceList;
+    //     let promo;
+    //     await getResource('http://localhost:3000/PriceList')
+    //         .then(data => priceList = data);
+    //
+    //
+    //     priceList.forEach(obj => {
+    //         for (const key in obj) {
+    //             try {
+    //                 if (key === 'promocode') {
+    //                     promo = obj[key];
+    //                 }
+    //
+    //                 if (key === element.options[element.selectedIndex].innerText) {
+    //                     element.options[element.selectedIndex].value = obj[key];
+    //                 }
+    //             } catch(e){}
+    //         }
+    //     });
+    //
+    //     return promo;
+    // }
+    //
+    //
+    // const calcFunction = async (element, property) => {
+    //     const promo = await setPrice(element);
+    //
+    //     sum = Math.round((+sizeBlock.value) * (+materialBlock.value) + (+optionsBlock.value));
+    //
+    //     if (sizeBlock.value === '' || materialBlock.value === '') {
+    //         resultBlock.textContent = 'Пожалуйста, выберите размер и материал картины';
+    //     }
+    //     else if (promocodeBlock.value === promo) {
+    //         resultBlock.textContent = Math.round(sum * 0.7);
+    //         state['promocode'] = 'true';
+    //     }
+    //     else {
+    //         resultBlock.textContent = sum;
+    //         state['promocode'] = 'false';
+    //     }
+    //
+    //     try {
+    //         if (element.options.selectedIndex === 0) {
+    //             delete state[property];
+    //         }
+    //
+    //         if (element.options.selectedIndex !== 0) {
+    //             state[property] = element.options[element.selectedIndex].textContent;
+    //         }
+    //     }catch(e) {}
+    //     state['price'] = resultBlock.textContent;
+    //     console.log(state);
+    // };
 
 
-        priceList.forEach(obj => {
-            for (const key in obj) {
-                try {
-                    if (key === 'promocode') {
-                        promo = obj[key];
-                    }
+    //                                                  w/o database
 
-                    if (key === element.options[element.selectedIndex].innerText) {
-                        element.options[element.selectedIndex].value = obj[key];
-                    }
-                } catch(e){}
-            }
-        });
-
-        return promo;
-    }
-
-
-    const calcFunction = async (element, property) => {
-        const promo = await setPrice(element);
-
+    const calcFunction = () => {
         sum = Math.round((+sizeBlock.value) * (+materialBlock.value) + (+optionsBlock.value));
 
         if (sizeBlock.value === '' || materialBlock.value === '') {
-            resultBlock.textContent = 'Пожалуйста, выберите размер и материал картины';
-        }
-        else if (promocodeBlock.value === promo) {
+            resultBlock.textContent = "Пожалуйста, выберите размер и материал картины";
+        } else if (promocodeBlock.value === 'IWANTPOPART') {
             resultBlock.textContent = Math.round(sum * 0.7);
-            state['promocode'] = 'true';
-        }
-        else {
+        } else {
             resultBlock.textContent = sum;
-            state['promocode'] = 'false';
         }
-
-        try {
-            if (element.options.selectedIndex === 0) {
-                delete state[property];
-            }
-
-            if (element.options.selectedIndex !== 0) {
-                state[property] = element.options[element.selectedIndex].textContent;
-            }
-        }catch(e) {}
-        state['price'] = resultBlock.textContent;
-        console.log(state);
     };
 
 

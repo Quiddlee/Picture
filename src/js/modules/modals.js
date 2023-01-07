@@ -1,7 +1,11 @@
+import animation from "../services/animation";
+
+
 const modals = () => {
     let isModalActive = false;
     function bindModal(modalSelector, triggerSelector, closeSelector, deleteTrigger = false) {
         // const modalTimerId = showModalByTime('popup-consultation', 6000);
+        const modalDialogs = document.querySelectorAll('.popup-content');
         const trigger = document.querySelectorAll(triggerSelector);
         const windows = document.querySelectorAll('[data-modal]');
         const modal = document.querySelector(modalSelector);
@@ -19,8 +23,12 @@ const modals = () => {
                 isModalActive = true;
 
 
+                modalDialogs.forEach(elem => {
+                    animation.modalIn(elem);
+                });
+
+
                 windows.forEach(window => {
-                    window.classList.add('animated', 'fadeIn');
                     window.style.display = 'none'
                 });
 
@@ -35,11 +43,15 @@ const modals = () => {
         close.addEventListener('click', () => {
             if (gift) gift.style.right = `2rem`;
 
+            modalDialogs.forEach(elem => {
+                animation.modalOut(elem);
+            });
 
-            windows.forEach(window => window.style.display = 'none');
-            // modal.classList.remove('form_faded');
-            document.body.style.marginRight = '0px';
-            document.body.style.overflow = '';
+            setTimeout(() => {
+                windows.forEach(window => window.style.display = 'none');
+                document.body.style.marginRight = '0px';
+                document.body.style.overflow = '';
+            },300)
         });
 
 
@@ -47,11 +59,15 @@ const modals = () => {
             if (event.target === modal) {
                 if (gift) gift.style.right = `2rem`;
 
+                modalDialogs.forEach(elem => {
+                    animation.modalOut(elem);
+                });
 
-                windows.forEach(window => window.style.display = 'none');
-                // modal.classList.remove('form_faded');
-                document.body.style.marginRight = '0px';
-                document.body.style.overflow = '';
+                setTimeout(() => {
+                    windows.forEach(window => window.style.display = 'none');
+                    document.body.style.marginRight = '0px';
+                    document.body.style.overflow = '';
+                },300)
             }
         });
     }
